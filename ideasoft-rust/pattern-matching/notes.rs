@@ -73,12 +73,28 @@ fn main() {
     }
     println!("Finally eating chips!");
 
+    // remarkably, one of the quiz questions seems to be completely incorrect and doesn't even compile. I pointed this out to the course creators.
+
     enum Key { Up, Down, Left, Right }
 
+    // the original match statement which doesn't compile
+    // error[E0170]: pattern binding `Up` is named the same as one of the variants of the type `main::Key`
+    // help: to match on the variant, qualify the path: `main::Key::Up`
+    // match Key::Left {
+    //     Up => println!("Jumping"),
+    //     Down => println!("Ducking!"),
+    //     Left => println!("Sliding Left!"),
+    //     Right => println!("Sliding Right!"),
+    // }
+
+    // so I changed it to:
     match Key::Left {
         Key::Up => println!("Jumping"),
         Key::Down => println!("Ducking!"),
         Key::Left => println!("Sliding Left!"),
         Key::Right => println!("Sliding Right!"),
     }
+    // which naturally prints "Sliding Left!"
+    // the correct answer according to the course was "Jumping"
+    // interested to hear what the course creator has to say
 }
