@@ -46,4 +46,16 @@ fn main() {
     println!("Sum of {:?} after doubling: {}", a, n);
     // e.g. this is used like `x => x*2` would be in js here and doesn't encapsulate anything from the environment
 
+    // this example from the quiz didn't make sense until I tried compiling it. At first glance it seems fine, but a closure actually creates a struct and thus two closures are of two different types
+    // fn perform_operation(should_add: bool, amount_to_add: i32, value: i32) -> i32 {
+    //         let operation = if should_add {
+    //             // A closure that adds `amount_to_add` to `value`.
+    //             |value: i32| value + amount_to_add
+    //         } else {
+    //             // A closure that returns `value` without modification.
+    //             |value: i32| value + 0
+    //         };
+
+    //         operation(value)
+    //     }
 }
