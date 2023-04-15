@@ -22,25 +22,26 @@ fn fizz_buzz_array(n: i32) -> Vec<String> {
  */
 
 // ugly as sin and used constants to get around my lack of knowledge of how to use `String`
-const fizz: &str = "Fizz";
-const buzz: &str = "Buzz";
-const fizzbuzz: &str = "FizzBuzz";
+const FIZZ: &str = "Fizz";
+const BUZZ: &str = "Buzz";
+const FIZZBUZZ: &str = "FizzBuzz";
 
-fn fizz_buzz (n: i32) -> &'static str {
+fn fizz_buzz (n: i32) -> String {
     if n % 3 == 0 && n % 5 == 0 {
-        return fizzbuzz;
+        String::from(FIZZBUZZ)
     } else if n % 3 == 0 {
-        return fizz;
+        String::from(FIZZ)
     } else if n % 5 == 0 {
-        return buzz;
+        String::from(BUZZ)
     } else {
-        return "n"; // this is the part that's failing b/c I didn't google how to stringify ints
+        n.to_string()
     }
 }
 
 fn main() {
-    assert!(fizz_buzz(3) == fizz);
-    assert!(fizz_buzz(5) == buzz);
-    assert!(fizz_buzz(15) == fizzbuzz);
+    assert!(fizz_buzz(1) == "1");
+    assert!(fizz_buzz(3) == FIZZ);
+    assert!(fizz_buzz(5) == BUZZ);
+    assert!(fizz_buzz(15) == FIZZBUZZ);
     println!("You passed!");
 }
