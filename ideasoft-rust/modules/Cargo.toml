@@ -1,0 +1,7 @@
+[dependencies]
+
+time = "0.3"
+
+# can also import from git or locally
+# time = { git = "https://github.com/time-rs/time.git" }
+# time = { path = "../time" }
