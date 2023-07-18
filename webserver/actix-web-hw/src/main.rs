@@ -1,5 +1,17 @@
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 
+type Port = u16;
+
+struct Config {
+    port: Port,
+}
+
+fn config() -> Config {
+    Config {
+        port: std::env::var("PORT").unwrap_or("8081".to_string()).parse::<u16>().unwrap(),
+    }
+}
+
 #[get("/")]
 async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Hello world!")
@@ -22,7 +34,7 @@ async fn main() -> std::io::Result<()> {
             .service(echo)
             .route("/hey", web::get().to(manual_hello))
     })
-        .bind(("127.0.0.1", 8080))?
+        .bind(("127.0.0.1", config().port))?
         .run()
         .await
 }
