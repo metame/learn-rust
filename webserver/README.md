@@ -8,3 +8,4 @@ So far I've done the following with `actix-web`:
 3. Created an endpoint that takes Json and an endpoint that uses a path param
    a. `cargo add serde` wasn't enough to let me `derive` `Deserialize` so had to enable feature `derive` for `serde` in `Cargo.toml`
 4. Introduced a little file structure to the server
+5. Added route with a base64 encoded route param that forwards to a standard route

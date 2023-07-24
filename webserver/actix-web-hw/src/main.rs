@@ -2,6 +2,7 @@ use actix_web::{post, web, App, HttpResponse, HttpServer, Responder};
 
 mod config;
 mod routes;
+mod util;
 
 #[post("/echo")]
 async fn echo(req_body: String) -> impl Responder {
