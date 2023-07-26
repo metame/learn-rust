@@ -22,6 +22,9 @@ mod tests {
 
     #[test]
     fn test_decode() {
-        assert_eq!(String::from_utf8(decode(ENCODED).unwrap()).unwrap(), DECODED);
+        assert_eq!(
+            String::from_utf8(decode(ENCODED).unwrap()).unwrap(),
+            DECODED
+        );
     }
 }

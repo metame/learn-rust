@@ -1,13 +1,8 @@
 use actix_web::{get, post, web, HttpResponse, Responder, Result, Scope};
-use serde::Deserialize;
 
+use crate::db;
+use crate::types::{GreetName, State};
 use crate::util::base64;
-
-#[derive(Deserialize)]
-struct GreetName {
-    greeting: String,
-    name: String,
-}
 
 #[get("")]
 async fn hello() -> impl Responder {
@@ -20,9 +15,11 @@ async fn hello_post(data: web::Json<GreetName>) -> Result<String> {
 }
 
 #[get("/{name}")]
-async fn hello_name(path: web::Path<String>) -> Result<String> {
+async fn hello_name(state: web::Data<State>, path: web::Path<String>) -> impl Responder {
     let name = path.into_inner();
-    Ok(format!("Hello {name}!"))
+    let conn = state.conn.lock().unwrap();
+    db::store_name(&conn, &name);
+    HttpResponse::Ok().body(format!("Hello {name}!"))
 }
 
 #[get("/{greeting}/{name}")]
@@ -33,7 +30,7 @@ async fn custom_greeting(path_data: web::Path<GreetName>) -> Result<String> {
 #[get("/encoded/{encoded_string}")]
 async fn encoded_greeting(path: web::Path<String>) -> impl Responder {
     let decoded = String::from_utf8(base64::decode(&path.into_inner()).unwrap()).unwrap();
-    web::Redirect::to(format!("/{decoded}"))
+    web::Redirect::to(format!("/hello/{decoded}"))
 }
 
 pub fn service() -> Scope {
